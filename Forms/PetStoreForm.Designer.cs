@@ -1,0 +1,72 @@
+﻿namespace petstore
+{
+    partial class PetStoreForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            listPetPanel = new FlowLayoutPanel();
+            reload = new Button();
+            SuspendLayout();
+            // 
+            // listPetPanel
+            // 
+            listPetPanel.AutoScroll = true;
+            listPetPanel.BorderStyle = BorderStyle.FixedSingle;
+            listPetPanel.Dock = DockStyle.Bottom;
+            listPetPanel.Location = new Point(0, 115);
+            listPetPanel.Name = "listPetPanel";
+            listPetPanel.Size = new Size(1093, 529);
+            listPetPanel.TabIndex = 0;
+            // 
+            // reload
+            // 
+            reload.Location = new Point(978, 38);
+            reload.Name = "reload";
+            reload.Size = new Size(94, 29);
+            reload.TabIndex = 1;
+            reload.Text = "Reload";
+            reload.UseVisualStyleBackColor = true;
+            reload.Click += reload_Click;
+            // 
+            // PetStoreForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1093, 644);
+            Controls.Add(reload);
+            Controls.Add(listPetPanel);
+            Name = "PetStoreForm";
+            Text = "Pet store";
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private FlowLayoutPanel listPetPanel;
+        private Button reload;
+    }
+}
