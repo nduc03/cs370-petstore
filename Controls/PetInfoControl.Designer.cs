@@ -31,7 +31,7 @@
             picture = new PictureBox();
             name = new Label();
             type = new Label();
-            adopt = new Button();
+            btnAdopt = new Button();
             price = new Label();
             ((System.ComponentModel.ISupportInitialize)picture).BeginInit();
             SuspendLayout();
@@ -66,14 +66,16 @@
             type.Text = "Type";
             type.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // adopt
+            // btnAdopt
             // 
-            adopt.Location = new Point(77, 333);
-            adopt.Name = "adopt";
-            adopt.Size = new Size(94, 29);
-            adopt.TabIndex = 3;
-            adopt.Text = "Adopt";
-            adopt.UseVisualStyleBackColor = true;
+            btnAdopt.Enabled = false;
+            btnAdopt.Location = new Point(77, 333);
+            btnAdopt.Name = "btnAdopt";
+            btnAdopt.Size = new Size(94, 29);
+            btnAdopt.TabIndex = 3;
+            btnAdopt.Text = "Adopt";
+            btnAdopt.UseVisualStyleBackColor = true;
+            btnAdopt.Visible = false;
             // 
             // price
             // 
@@ -90,23 +92,24 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(price);
-            Controls.Add(adopt);
+            Controls.Add(btnAdopt);
             Controls.Add(type);
             Controls.Add(name);
             Controls.Add(picture);
             Name = "PetInfoControl";
-            Size = new Size(248, 385);
+            Size = new Size(246, 383);
             ((System.ComponentModel.ISupportInitialize)picture).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Button adopt;
         public PictureBox picture;
         public Label name;
         public Label price;
         public Label type;
+        public Button btnAdopt;
     }
 }

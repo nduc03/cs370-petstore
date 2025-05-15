@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace petstore
 {
     public partial class PetStoreForm : Form
     {
         private readonly AppDbContext dbCtx;
-        private readonly User loggedInUser;
-        public PetStoreForm(AppDbContext dbCtx, User loggedInUser)
+        private readonly PetStoreService petStoreService;
+        private readonly int loggedInUserId;
+
+        public PetStoreForm(AppDbContext dbCtx, User loggedInUser, PetStoreService petStoreService)
         {
             InitializeComponent();
             this.dbCtx = dbCtx;
-            this.loggedInUser = loggedInUser;
-            Text = loggedInUser.Username;
-
-            //Load += async (_, e) => OnLoadAsync(e);
+            loggedInUserId = loggedInUser.Id;
+            this.petStoreService = petStoreService;
+            Text = "Pet store. Logged in as: " + loggedInUser.Username;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -28,34 +28,49 @@ namespace petstore
             listPetPanel.Controls.Clear();
             foreach (var pet in dbCtx.Pets)
             {
-                listPetPanel.Controls.Add(Pet2PetControl(pet));
-            }
-        }
+                if (pet.AdoptedBy != null)
+                    continue;
+                var petControl = Utils.Pet2PetControl(pet);
+                petControl.btnAdopt.Enabled = true;
+                petControl.btnAdopt.Visible = true;
+                petControl.btnAdopt.Click += (s, e) =>
+                {
+                    // TODO change to better confirmation window
+                    if (MessageBox.Show("Adopt this pet?", "Adopt", MessageBoxButtons.YesNo) == DialogResult.No)
+                        return;
 
-        private static PetInfoControl Pet2PetControl(Pet pet)
-        {
-            var petControl = new PetInfoControl(pet.Id);
-            _ = Utils.LoadImageFromUriAsync(petControl.picture, pet.ImageUri);
-            petControl.name.Text = "Name: " + pet.Name;
-            petControl.type.Text = "Type: " + pet.Type;
-            petControl.price.Text = "Price: " + pet.Price.ToString();
-            petControl.BorderStyle = BorderStyle.FixedSingle;
-            return petControl;
+                    AdoptPet(pet);
+                    UpdatePetList();
+                };
+                listPetPanel.Controls.Add(petControl);
+            }
         }
 
         private void reload_Click(object sender, EventArgs e)
         {
             UpdatePetList();
         }
+
+        private void AdoptPet(Pet adoptee)
+        {
+            var adopterId = loggedInUserId;
+            var status = petStoreService.Adopt(adopterId, adoptee.Id);
+            if (status.Success)
+            {
+                MessageBox.Show(status.Message, "Success");
+            }
+            else
+            {
+                MessageBox.Show(status.Message, "Error");
+            }
+        }
     }
 
-    public class PetStoreFormFactory(IServiceProvider serviceProvider)
+    public class PetStoreFormFactory(AppDbContext dbCtx,PetStoreService petStoreService)
     {
-        private readonly IServiceProvider serviceProvider = serviceProvider;
         public PetStoreForm Create(User loggedInUser, Form owner)
         {
-            var dbCtx = serviceProvider.GetRequiredService<AppDbContext>();
-            return new PetStoreForm(dbCtx, loggedInUser) { Owner = owner };
+            return new PetStoreForm(dbCtx, loggedInUser, petStoreService) { Owner = owner };
         }
     }
 }

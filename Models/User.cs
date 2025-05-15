@@ -15,6 +15,6 @@ namespace petstore
         public string Password { get; set; } = string.Empty;
         public bool IsAdmin { get; set; } = false;
         public List<Pet> AdoptedPets { get; set; } = [];
-        public double Fund { get; set; } = 0.0;
+        public double Balance { get; set; } = 0.0;
     }
 }

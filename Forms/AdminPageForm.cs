@@ -7,14 +7,29 @@ namespace petstore
         private readonly AppDbContext dbCtx;
         private readonly IServiceProvider serviceProvider;
         private readonly User loggedInUser;
-        public AdminPageForm(AppDbContext dbCtx, IServiceProvider serviceProvider, User loggedInUser)
+        private readonly PetStoreService petStoreService;
+        public AdminPageForm(
+            AppDbContext dbCtx,
+            IServiceProvider serviceProvider,
+            User loggedInUser,
+            PetStoreService petStoreService
+        )
         {
             InitializeComponent();
             this.dbCtx = dbCtx;
             this.serviceProvider = serviceProvider;
             this.loggedInUser = loggedInUser;
+            this.petStoreService = petStoreService;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             if (!loggedInUser.IsAdmin)
-                throw new ArgumentException("User is not admin, cannot access admin page.");
+            {
+                MessageBox.Show("User is not admin, cannot access admin page.");
+                Close();
+            }
         }
 
         private void btnAddPet_Click(object sender, EventArgs e)
@@ -26,14 +41,22 @@ namespace petstore
                 Price = decimal.ToDouble(numPetPrice.Value),
                 ImageUri = txtPetPictureUri.Text
             };
-            dbCtx.Pets.Add(pet);
-            dbCtx.SaveChanges();
+            //dbCtx.Pets.Add(pet);
+            //dbCtx.SaveChanges();
+            var status = petStoreService.AddNewPet(loggedInUser.Id, pet);
 
-            txtPetName.Text = string.Empty;
-            txtPetType.Text = string.Empty;
-            numPetPrice.Value = 0;
-            txtPetPictureUri.Text = string.Empty;
-            MessageBox.Show("Pet added successfully.");
+            if (status.Success)
+            {
+                txtPetName.Text = string.Empty;
+                txtPetType.Text = string.Empty;
+                numPetPrice.Value = 0;
+                txtPetPictureUri.Text = string.Empty;
+                MessageBox.Show("Pet added successfully.");
+            }
+            else
+            {
+                MessageBox.Show($"Failed to add pet: {status.Message}");
+            }
         }
 
         private void btnOpenStore_Click(object sender, EventArgs e)
@@ -44,13 +67,15 @@ namespace petstore
         }
     }
 
-    public class AdminPageFormFactory(IServiceProvider serviceProvider)
+    public class AdminPageFormFactory(
+        IServiceProvider serviceProvider,
+        AppDbContext dbCtx,
+        PetStoreService petStoreService
+        )
     {
-        private readonly IServiceProvider serviceProvider = serviceProvider;
         public AdminPageForm Create(User loggedInUser)
         {
-            var dbCtx = serviceProvider.GetRequiredService<AppDbContext>();
-            return new AdminPageForm(dbCtx, serviceProvider, loggedInUser);
+            return new AdminPageForm(dbCtx, serviceProvider, loggedInUser, petStoreService);
         }
     }
 }

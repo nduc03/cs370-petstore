@@ -15,7 +15,7 @@ namespace petstore
             var services = new ServiceCollection();
             services.AddDbContext<AppDbContext>(option =>
             {
-                if (IsPostgresDb(ConfigurationManager.AppSettings.Get("db")))
+                if (IsPostgresDb(ConfigurationManager.AppSettings.Get("dbType")))
                     option.UseNpgsql(
                         "Host=localhost;Port=5432;Database=cs370_petstore;Username=postgres;Password=1234"
                     );
@@ -26,6 +26,7 @@ namespace petstore
             services.AddScoped<AdminPageFormFactory>();
             services.AddScoped<UserPageFormFactory>();
             services.AddScoped<PetStoreFormFactory>();
+            services.AddScoped<PetStoreService>();
 
             using var serviceProvider = services.BuildServiceProvider();
 

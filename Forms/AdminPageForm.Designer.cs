@@ -141,6 +141,7 @@
             // 
             // btnOpenStore
             // 
+            btnOpenStore.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnOpenStore.Location = new Point(694, 12);
             btnOpenStore.Name = "btnOpenStore";
             btnOpenStore.Size = new Size(94, 29);

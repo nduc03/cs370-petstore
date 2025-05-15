@@ -30,6 +30,7 @@
         {
             listPetPanel = new FlowLayoutPanel();
             reload = new Button();
+            lblPetStoreTitle = new Label();
             SuspendLayout();
             // 
             // listPetPanel
@@ -44,6 +45,7 @@
             // 
             // reload
             // 
+            reload.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             reload.Location = new Point(978, 38);
             reload.Name = "reload";
             reload.Size = new Size(94, 29);
@@ -52,21 +54,34 @@
             reload.UseVisualStyleBackColor = true;
             reload.Click += reload_Click;
             // 
+            // lblPetStoreTitle
+            // 
+            lblPetStoreTitle.AutoSize = true;
+            lblPetStoreTitle.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPetStoreTitle.Location = new Point(12, 28);
+            lblPetStoreTitle.Name = "lblPetStoreTitle";
+            lblPetStoreTitle.Size = new Size(126, 38);
+            lblPetStoreTitle.TabIndex = 2;
+            lblPetStoreTitle.Text = "Pet store";
+            // 
             // PetStoreForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1093, 644);
+            Controls.Add(lblPetStoreTitle);
             Controls.Add(reload);
             Controls.Add(listPetPanel);
             Name = "PetStoreForm";
             Text = "Pet store";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private FlowLayoutPanel listPetPanel;
         private Button reload;
+        private Label lblPetStoreTitle;
     }
 }
