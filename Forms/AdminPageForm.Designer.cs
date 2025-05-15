@@ -175,7 +175,6 @@
         private TextBox txtPetPictureUri;
         private GroupBox addPetGroupBox;
         private Button btnAddPet;
-        private TextBox txtPrice;
         private Label lblPetPrice;
         private NumericUpDown numPetPrice;
         private Button btnOpenStore;

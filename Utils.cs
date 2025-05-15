@@ -27,12 +27,14 @@ namespace petstore
                     "Reset Database", 
                     MessageBoxButtons.YesNo
                 );
-                if (accept == DialogResult.No)
+                if (accept == DialogResult.Yes)
+                {
+                    dbCtx.Database.EnsureDeleted();
+                }
+                else
                 {
                     MessageBox.Show("Database reset cancelled.");
-                    return;
                 }
-                dbCtx.Database.EnsureDeleted();
             }
 
             dbCtx.Database.EnsureCreated();
