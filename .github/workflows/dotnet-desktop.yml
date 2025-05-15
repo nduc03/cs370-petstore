@@ -18,7 +18,7 @@ jobs:
         dotnet-version: '8.0.x' 
 
     - name: Restore dependencies
-      run: dotnet restore MyWinFormsApp.sln
+      run: dotnet restore petstore.sln
 
     - name: Build solution
-      run: dotnet build MyWinFormsApp.sln --configuration Release --no-restore
+      run: dotnet build petstore.sln --configuration Release --no-restore
