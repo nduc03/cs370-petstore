@@ -62,5 +62,30 @@
             dbCtx.SaveChanges();
             return new Status(true, "Pet added successfully");
         }
+
+        public Status RemovePet(int userId, int petToRemoveId)
+        {
+            var user = dbCtx.Users.FirstOrDefault(u => u.Id == userId);
+            var pet = dbCtx.Pets.FirstOrDefault(p => p.Id == petToRemoveId);
+            if (user == null)
+            {
+                return new Status(false, "User not found");
+            }
+            if (!user.IsAdmin)
+            {
+                return new Status(false, "You don't have permission. Only admin can remove pets in store.");
+            }
+            if (pet == null)
+            {
+                return new Status(false, "Pet not found");
+            }
+            if (pet.AdoptedBy != null)
+            {
+                return new Status(false, "Pet already adopted. Cannot remove adopted pets.");
+            }
+            dbCtx.Pets.Remove(pet);
+            dbCtx.SaveChanges();
+            return new Status(true, "Pet removed successfully");
+        }
     }
 }

@@ -6,13 +6,13 @@ namespace petstore
     {
         private readonly AppDbContext dbCtx;
         private readonly PetStoreService petStoreService;
-        private readonly int loggedInUserId;
+        private readonly User loggedInUser;
 
         public PetStoreForm(AppDbContext dbCtx, User loggedInUser, PetStoreService petStoreService)
         {
             InitializeComponent();
             this.dbCtx = dbCtx;
-            loggedInUserId = loggedInUser.Id;
+            this.loggedInUser = loggedInUser;
             this.petStoreService = petStoreService;
             Text = "Pet store. Logged in as: " + loggedInUser.Username;
         }
@@ -31,17 +31,14 @@ namespace petstore
                 if (pet.AdoptedBy != null)
                     continue;
                 var petControl = Utils.Pet2PetControl(pet);
-                petControl.btnAdopt.Enabled = true;
-                petControl.btnAdopt.Visible = true;
-                petControl.btnAdopt.Click += (s, e) =>
+                if (loggedInUser.IsAdmin)
                 {
-                    // TODO change to better confirmation window
-                    if (MessageBox.Show("Adopt this pet?", "Adopt", MessageBoxButtons.YesNo) == DialogResult.No)
-                        return;
-
-                    AdoptPet(pet);
-                    UpdatePetList();
-                };
+                    SetupRemovePetButton(petControl.btnAdopt, () => RemovePet(pet));
+                }
+                else
+                {
+                    SetupAdoptButton(petControl.btnAdopt, () => AdoptPet(pet));
+                }
                 listPetPanel.Controls.Add(petControl);
             }
         }
@@ -53,7 +50,7 @@ namespace petstore
 
         private void AdoptPet(Pet adoptee)
         {
-            var adopterId = loggedInUserId;
+            var adopterId = loggedInUser.Id;
             var status = petStoreService.Adopt(adopterId, adoptee.Id);
             if (status.Success)
             {
@@ -63,6 +60,51 @@ namespace petstore
             {
                 MessageBox.Show(status.Message, "Error");
             }
+        }
+
+        private void RemovePet(Pet adoptee)
+        {
+            var adopterId = loggedInUser.Id;
+            var status = petStoreService.RemovePet(adopterId, adoptee.Id);
+            if (status.Success)
+            {
+                MessageBox.Show(status.Message, "Success");
+            }
+            else
+            {
+                MessageBox.Show(status.Message, "Error");
+            }
+        }
+
+        private void SetupAdoptButton(Button button, Action adoptAction)
+        {
+            button.Enabled = true;
+            button.Visible = true;
+            button.Click += (s, e) =>
+            {
+                // TODO change to better confirmation window
+                if (MessageBox.Show("Adopt this pet?", "Adopt", MessageBoxButtons.YesNo) == DialogResult.No)
+                    return;
+
+                adoptAction();
+                UpdatePetList();
+            };
+        }
+
+        private void SetupRemovePetButton(Button button, Action removeAction)
+        {
+            button.Enabled = true;
+            button.Visible = true;
+            button.Text = "Remove";
+            button.Click += (s, e) =>
+            {
+                // TODO change to better confirmation window
+                if (MessageBox.Show("Remove this pet?", "Remove", MessageBoxButtons.YesNo) == DialogResult.No)
+                    return;
+
+                removeAction();
+                UpdatePetList();
+            };
         }
     }
 
