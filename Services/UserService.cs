@@ -29,5 +29,15 @@ namespace petstore.Services
             dbCtx.SaveChanges();
             return new Status(true, "Balance added successfully");
         }
+
+        public Status<double> GetBalance(int userId)
+        {
+            var user = dbCtx.Users.FirstOrDefault(u => u.Id == userId);
+            if (user == null)
+            {
+                return new Status<double>(false, "User not found", 0);
+            }
+            return new Status<double>(true, "Success", user.Balance);
+        }
     }
 }

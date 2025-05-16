@@ -31,6 +31,7 @@
             listPetPanel = new FlowLayoutPanel();
             reload = new Button();
             lblPetStoreTitle = new Label();
+            label1 = new Label();
             SuspendLayout();
             // 
             // listPetPanel
@@ -46,7 +47,7 @@
             // reload
             // 
             reload.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            reload.Location = new Point(978, 38);
+            reload.Location = new Point(987, 64);
             reload.Name = "reload";
             reload.Size = new Size(94, 29);
             reload.TabIndex = 1;
@@ -64,11 +65,22 @@
             lblPetStoreTitle.TabIndex = 2;
             lblPetStoreTitle.Text = "Pet store";
             // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label1.Location = new Point(603, 28);
+            label1.Name = "label1";
+            label1.Size = new Size(478, 20);
+            label1.TabIndex = 3;
+            label1.Text = "Current Balance:";
+            label1.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // PetStoreForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1093, 644);
+            Controls.Add(label1);
             Controls.Add(lblPetStoreTitle);
             Controls.Add(reload);
             Controls.Add(listPetPanel);
@@ -83,5 +95,6 @@
         private FlowLayoutPanel listPetPanel;
         private Button reload;
         private Label lblPetStoreTitle;
+        private Label label1;
     }
 }

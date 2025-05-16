@@ -38,9 +38,10 @@
             // 
             // picture
             // 
-            picture.Location = new Point(27, 22);
+            picture.Location = new Point(23, 22);
             picture.Name = "picture";
-            picture.Size = new Size(194, 198);
+            picture.Size = new Size(200, 200);
+            picture.SizeMode = PictureBoxSizeMode.Zoom;
             picture.TabIndex = 0;
             picture.TabStop = false;
             // 
@@ -48,7 +49,7 @@
             // 
             name.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             name.AutoSize = true;
-            name.Location = new Point(27, 240);
+            name.Location = new Point(23, 240);
             name.Name = "name";
             name.Size = new Size(49, 20);
             name.TabIndex = 1;
@@ -59,7 +60,7 @@
             // 
             type.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             type.AutoSize = true;
-            type.Location = new Point(31, 271);
+            type.Location = new Point(27, 271);
             type.Name = "type";
             type.Size = new Size(40, 20);
             type.TabIndex = 2;
@@ -81,7 +82,7 @@
             // 
             price.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             price.AutoSize = true;
-            price.Location = new Point(30, 301);
+            price.Location = new Point(26, 301);
             price.Name = "price";
             price.Size = new Size(41, 20);
             price.TabIndex = 4;

@@ -1,15 +1,11 @@
 ﻿namespace petstore
 {
-    public struct Status(bool success, string message)
+    public interface IStatus
     {
-        public readonly bool Success => success;
-        public readonly string Message => message;
+        bool Success { get; }
+        string Message { get; }
     }
+    public record Status(bool Success, string Message) : IStatus;
 
-    public struct Status<T>(bool success, string message, T? data)
-    {
-        public readonly bool Success => success;
-        public readonly string Message => message;
-        public readonly T? Data => data;
-    }
+    public record Status<T>(bool Success, string Message, T? Data) : IStatus;
 }

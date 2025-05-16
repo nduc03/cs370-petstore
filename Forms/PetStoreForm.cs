@@ -21,6 +21,7 @@ namespace petstore
         {
             dbCtx.Pets.Load();
             UpdatePetList();
+            LoadBalance();
         }
 
         private void UpdatePetList()
@@ -46,6 +47,21 @@ namespace petstore
         private void reload_Click(object sender, EventArgs e)
         {
             UpdatePetList();
+            LoadBalance();
+        }
+
+        private void LoadBalance()
+        {
+            var balance = dbCtx.Users.FirstOrDefault(u => u.Id == loggedInUser.Id)?.Balance;
+            if (balance != null)
+            {
+                label1.Text = "Current Balance: " + balance.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Error loading balance", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                label1.Text = "Current Balance: 0";
+            }
         }
 
         private void AdoptPet(Pet adoptee)
@@ -88,6 +104,7 @@ namespace petstore
 
                 adoptAction();
                 UpdatePetList();
+                LoadBalance();
             };
         }
 
@@ -104,6 +121,7 @@ namespace petstore
 
                 removeAction();
                 UpdatePetList();
+                LoadBalance();
             };
         }
     }
