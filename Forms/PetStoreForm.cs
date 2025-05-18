@@ -55,7 +55,7 @@ namespace petstore
             var balance = dbCtx.Users.FirstOrDefault(u => u.Id == loggedInUser.Id)?.Balance;
             if (balance != null)
             {
-                label1.Text = "Current Balance: " + balance.ToString();
+                label1.Text = $"Current Balance: {balance:n}";
             }
             else
             {

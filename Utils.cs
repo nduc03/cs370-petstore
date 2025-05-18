@@ -46,7 +46,7 @@ namespace petstore
             _ = LoadImageFromUriAsync(petControl.picture, pet.ImageUri);
             petControl.name.Text = "Name: " + pet.Name;
             petControl.type.Text = "Type: " + pet.Type;
-            petControl.price.Text = "Price: " + pet.Price.ToString();
+            petControl.price.Text = $"Price: {pet.Price:n}";
             return petControl;
         }
 

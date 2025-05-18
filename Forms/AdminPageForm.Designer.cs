@@ -66,27 +66,27 @@
             lblPetPictureUri.AutoSize = true;
             lblPetPictureUri.Location = new Point(15, 108);
             lblPetPictureUri.Name = "lblPetPictureUri";
-            lblPetPictureUri.Size = new Size(77, 20);
+            lblPetPictureUri.Size = new Size(81, 20);
             lblPetPictureUri.TabIndex = 2;
-            lblPetPictureUri.Text = "Picture Uri";
+            lblPetPictureUri.Text = "Picture URI";
             // 
             // txtPetName
             // 
-            txtPetName.Location = new Point(96, 26);
+            txtPetName.Location = new Point(102, 26);
             txtPetName.Name = "txtPetName";
             txtPetName.Size = new Size(247, 27);
             txtPetName.TabIndex = 3;
             // 
             // txtPetType
             // 
-            txtPetType.Location = new Point(96, 68);
+            txtPetType.Location = new Point(102, 68);
             txtPetType.Name = "txtPetType";
             txtPetType.Size = new Size(246, 27);
             txtPetType.TabIndex = 4;
             // 
             // txtPetPictureUri
             // 
-            txtPetPictureUri.Location = new Point(95, 108);
+            txtPetPictureUri.Location = new Point(102, 108);
             txtPetPictureUri.Name = "txtPetPictureUri";
             txtPetPictureUri.Size = new Size(247, 27);
             txtPetPictureUri.TabIndex = 5;
@@ -113,7 +113,7 @@
             // 
             numPetPrice.DecimalPlaces = 1;
             numPetPrice.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            numPetPrice.Location = new Point(96, 149);
+            numPetPrice.Location = new Point(102, 149);
             numPetPrice.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
             numPetPrice.Name = "numPetPrice";
             numPetPrice.Size = new Size(246, 27);

@@ -36,9 +36,8 @@
             // 
             // listPetPanel
             // 
+            listPetPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listPetPanel.AutoScroll = true;
-            listPetPanel.BorderStyle = BorderStyle.FixedSingle;
-            listPetPanel.Dock = DockStyle.Bottom;
             listPetPanel.Location = new Point(0, 115);
             listPetPanel.Name = "listPetPanel";
             listPetPanel.Size = new Size(1093, 529);
