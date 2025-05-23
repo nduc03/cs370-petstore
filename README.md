@@ -1,6 +1,6 @@
 1 trong 3 cách test chương trình:
- - Cài .NET Desktop Runtime 8 rồi test: https://github.com/nduc03/cs370-petstore/releases/download/v0.2/win-x64.zip
- - Tải cái này chạy luôn https://github.com/nduc03/cs370-petstore/releases/download/v0.2/win-x64-self-contained.zip
+ - (bản cũ) ~~Cài .NET Desktop Runtime 8 rồi test: https://github.com/nduc03/cs370-petstore/releases/download/v0.2/win-x64.zip~~
+ - Tải cái này chạy luôn https://github.com/nduc03/cs370-petstore/releases/download/v1.0/win-x64-self-contained-with-db.zip
  - Cài SDK rồi clone project về build.
 
 Màn hình login:
